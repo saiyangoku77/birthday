@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Sanchita!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #ffcccc; /* Loving background color */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden; /* Prevent scrolling */
+        }
+
+        #container {
+            background-color: #ffffff; /* White background color for the container */
+            border-radius: 20px; /* Rounded corners for the container */
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Box shadow for depth */
+            max-width: 800px;
+            width: 90%;
+        }
+
+        #birthday-message {
+            margin-top: 30px;
+            font-size: 18px;
+            color: #333;
+            text-align: left;
+        }
+
+        #countdown {
+            font-size: 32px;
+            color: #ff4500; /* Reddish color for countdown */
+            margin-top: 20px;
+        }
+
+        /* Confetti animation */
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-500px) rotate(0deg);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(1000px) rotate(360deg);
+                opacity: 1;
+            }
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #ffcc00;
+            opacity: 0.7;
+            border-radius: 50%;
+            animation: confetti-fall 5s ease-out forwards;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="birthday-message">
+            <h1>Happy Birthday Sanchita!</h1>
+            <p>Wishing you a day filled with love, joy, and happiness.</p>
+            <p>Let's make this day special!</p>
+            <div id="countdown">Countdown: </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to calculate remaining time until the birthday
+        function calculateTimeUntilBirthday() {
+            const now = new Date();
+            const birthday = new Date(now.getFullYear(), 1, 19); // February 19
+            if (now > birthday) {
+                birthday.setFullYear(birthday.getFullYear() + 1);
+            }
+            const diff = birthday - now;
+
+            // Calculating days, hours, minutes, seconds
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            return { days, hours, minutes, seconds };
+        }
+
+        // Update countdown timer every second
+        function updateCountdown() {
+            const { days, hours, minutes, seconds } = calculateTimeUntilBirthday();
+            if (days <= 0 && hours <= 0 && minutes <= 0 && seconds <= 0) {
+                document.getElementById('countdown').textContent = "Happy Birthday Sanchita!";
+                displayBirthdayMessage();
+            } else {
+                document.getElementById('countdown').textContent = `Countdown: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+            }
+        }
+
+        // Function to display a beautiful and complimentary paragraph for Sanchita
+        function displayBirthdayMessage() {
+            const birthdayMessage = `
+                <p>My dearest Sanchita,</p>
+                <p>On this special day, as the clock strikes midnight and the world echoes with wishes, I want to take a moment to express just how extraordinary you are. Happy Birthday! Your presence in my life illuminates every corner with warmth, kindness, and boundless love. Your smile, like the sunrise, brings light and hope into every day. Your laughter is the melody that fills my heart with joy, and your strength inspires me to be a better person each day.</p>
+                <p>With each passing year, you grace the world with your elegance, wisdom, and compassion. Your heart, as vast as the ocean, embraces all those around you, filling their lives with comfort and happiness. Your determination and resilience are the guiding stars that navigate us through life's challenges.</p>
+                <p>Today, as we celebrate you, I am reminded of how lucky I am to have you by my side. You are not just my girlfriend; you are my confidante, my partner-in-crime, and my greatest treasure. Your love is a gift that I cherish more than words can express, and I am endlessly grateful for every moment we share together.</p>
+                <p>As you blow out the candles and make a wish, know that my greatest wish is for your happiness, now and always. May this birthday be filled with laughter, love, and unforgettable memories. Here's to another year of adventures, dreams fulfilled, and love that knows no bounds.</p>
+                <p>Happy Birthday, my beloved Sanchita! You are the light of my life, and I love you more than words can say.</p>
+                <p>With all my love,</p>
+                <p>[Your Aru]</p>
+            `;
+            document.getElementById('birthday-message').innerHTML = birthdayMessage;
+            celebrate(); // Call the celebrate function
+        }
+
+        // Function to add celebratory confetti animation
+        function celebrate() {
+            const container = document.getElementById('container');
+            for (let i = 0; i < 150; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = `${Math.random() * 100}%`; // Random horizontal position
+                confetti.style.animationDelay = `${Math.random() * 4}s`; // Random animation delay
+                container.appendChild(confetti);
+            }
+        }
+
+        // Update countdown immediately when the page loads
+        updateCountdown();
+
+        // Update countdown every second
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
